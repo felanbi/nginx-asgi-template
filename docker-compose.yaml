@@ -1,0 +1,29 @@
+services:
+  back:
+    container_name: django-fastapi
+    env_file: ./back/.env
+    build: ./back
+    ports:
+      - 8000:8000
+    volumes:
+      - ./back/db.sqlite3:/app/db.sqlite3
+    networks:
+      - app
+
+  server:
+    container_name: nginx
+    env_file: .env
+    build: .
+    ports:
+      - 80:80
+    networks:
+      - app
+    depends_on:
+      - back
+
+networks:
+  app:
+    name: fullstack
+    external: true
+
+# volumes:
