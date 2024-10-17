@@ -14,7 +14,7 @@ app = FastAPI()
 
 register_tortoise(
     app,
-    db_url=settings.DB_URL,
+    db_url=settings.DATABASE_URL,
     modules={"models": ["api.core.models"]},
     add_exception_handlers=True,
 )

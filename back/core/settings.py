@@ -21,7 +21,7 @@ env = environ.Env()
 env.read_env(BASE_DIR / ".env", overwrite=True)
 
 ENV = env("ENV", default="prod")
-DB_URL = env("DB_URL")
+DATABASE_URL = env("DATABASE_URL")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/

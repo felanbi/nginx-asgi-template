@@ -1,4 +1,3 @@
 #!/bin/sh
-poetry run python3 manage.py makemigrations
-poetry run python3 manage.py migrate
+python3 manage.py makemigrations && python3 manage.py migrate
 exec "$@"
