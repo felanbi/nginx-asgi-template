@@ -2,6 +2,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 from fastapi import FastAPI
+from blacknoise import BlackNoise
 from tortoise.contrib.fastapi import register_tortoise
 
 from api.core import routers
@@ -22,5 +23,7 @@ register_tortoise(
 app.include_router(routers.authors.router)
 app.include_router(routers.books.router)
 
-djapp = get_asgi_application()
+djapp = BlackNoise(get_asgi_application())
+djapp.add(settings.STATIC_ROOT, "/static")
+
 app.mount("/", djapp)

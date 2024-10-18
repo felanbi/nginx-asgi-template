@@ -118,6 +118,20 @@ docs = ["Sphinx (>=5.3.0,<5.4.0)", "sphinx-rtd-theme (>=1.2.2)", "sphinxcontrib-
 test = ["flake8 (>=6.1,<7.0)", "uvloop (>=0.15.3)"]
 
 [[package]]
+name = "blacknoise"
+version = "1.1.0"
+description = "An ASGI app for static file serving inspired by whitenoise"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "blacknoise-1.1.0-py3-none-any.whl", hash = "sha256:789e7cb4c0354164738d001fee37622dd8d10df829b33a47ca2645dcfa76e9b0"},
+    {file = "blacknoise-1.1.0.tar.gz", hash = "sha256:20b96a452fe04d40bd69c3d939fb5e751ef56a835975d23fd4354af6e7a0c534"},
+]
+
+[package.dependencies]
+starlette = ">=0.39"
+
+[[package]]
 name = "click"
 version = "8.1.7"
 description = "Composable command line interface toolkit"
@@ -568,4 +582,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12.7"
-content-hash = "a85532f7f81f7460c15ceb1eb86250b324dfedf0c55a1ed0832dc9cb9ecf8515"
+content-hash = "442ae5a2ab4a6e4aa3c0ade93d1af51753f9b6a6d1c75b600650fa71b2035b0f"
