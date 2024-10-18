@@ -34,8 +34,6 @@ services:
       # start_period: 30s
     ports:
       - 8000:8000
-    volumes:
-      - ./back/db.sqlite3:/app/db.sqlite3
     networks:
       - back
       - app
