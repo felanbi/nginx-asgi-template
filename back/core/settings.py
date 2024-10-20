@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 env.read_env(BASE_DIR / ".env", overwrite=True)
 
-ENV = env("ENV", default="prod")
+ENV = env.str("ENV")
 DATABASE_URL = env("DATABASE_URL")
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +30,7 @@ DATABASE_URL = env("DATABASE_URL")
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False) and (ENV != "prod")
+DEBUG = not ENV.startswith('prod')
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
@@ -85,6 +85,16 @@ DATABASES = {
     "default": env.db(),
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': env('REDIS_URL'), 
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

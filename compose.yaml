@@ -8,17 +8,25 @@ networks:
 
 services:
   db:
-    image: postgres:14.8
-    container_name: postgres
+    image: postgres:17.0-alpine3.20
     env_file: .env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      # interval: 1m30s
-      # timeout: 30s
-      # retries: 5
-      # start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./pgdata:/data
+    networks:
+      - back
+
+  cache:
+    image: redis:7.4.1-alpine3.20
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - back
 
@@ -28,10 +36,9 @@ services:
     build: ./back
     healthcheck:
       test: ["CMD-SHELL", "lsof -i:8000 | grep -i listen"]
-      # interval: 1m30s
-      # timeout: 30s
-      # retries: 5
-      # start_period: 30s
+      interval: 30s
+      timeout: 10s
+      retries: 5
     ports:
       - 8000:8000
     networks:
@@ -40,9 +47,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      cache:
+        condition: service_healthy
 
   server:
-    container_name: nginx
     env_file: .env
     build: .
     ports:
