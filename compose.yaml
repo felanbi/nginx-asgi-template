@@ -15,8 +15,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-      - ./pgdata:/data
     networks:
       - back
 
@@ -32,6 +30,8 @@ services:
 
   back:
     container_name: django-fastapi
+    environment:
+      - ENV=production
     env_file: ./back/.env
     build: ./back
     healthcheck:

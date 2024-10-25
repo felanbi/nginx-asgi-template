@@ -1,0 +1,7 @@
+services:
+  back:
+    environment:
+      - ENV=development
+  db:
+    volumes:
+      - ./pgdata:/data
