@@ -3,6 +3,10 @@ services:
     volumes:
       - db_data:${PGDATA}
 
+  cache:
+    volumes:
+      - redis_data:/data
+
   back:
     environment:
       - ENV=production
@@ -20,3 +24,4 @@ services:
 
 volumes:
   db_data:
+  redis_data:
