@@ -1,16 +1,36 @@
 services:
   db:
     build: ./back
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - db_data:${PGDATA}
 
   cache:
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - redis_data:/data
 
   back:
     environment:
       - ENV=production
+    healthcheck:
+      test: ["CMD-SHELL", "lsof -i:8000 | grep -i listen"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
 
   server:
     env_file: .env
