@@ -1,0 +1,22 @@
+services:
+  db:
+    volumes:
+      - db_data:${PGDATA}
+
+  back:
+    environment:
+      - ENV=production
+
+  server:
+    env_file: .env
+    build: .
+    ports:
+      - 80:80
+    networks:
+      - app
+    depends_on:
+      back:
+        condition: service_healthy
+
+volumes:
+  db_data:

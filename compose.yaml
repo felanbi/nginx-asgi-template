@@ -7,6 +7,26 @@ networks:
     external: true
 
 services:
+  back:
+    container_name: django-fastapi
+    env_file: ./back/.env
+    build: ./back
+    healthcheck:
+      test: ["CMD-SHELL", "lsof -i:8000 | grep -i listen"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - 8000:8000
+    networks:
+      - back
+      - app
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+
   db:
     image: postgres:17.0-alpine3.20
     env_file: .env
@@ -27,36 +47,3 @@ services:
       retries: 5
     networks:
       - back
-
-  back:
-    container_name: django-fastapi
-    environment:
-      - ENV=production
-    env_file: ./back/.env
-    build: ./back
-    healthcheck:
-      test: ["CMD-SHELL", "lsof -i:8000 | grep -i listen"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    ports:
-      - 8000:8000
-    networks:
-      - back
-      - app
-    depends_on:
-      db:
-        condition: service_healthy
-      cache:
-        condition: service_healthy
-
-  server:
-    env_file: .env
-    build: .
-    ports:
-      - 80:80
-    networks:
-      - app
-    depends_on:
-      back:
-        condition: service_healthy

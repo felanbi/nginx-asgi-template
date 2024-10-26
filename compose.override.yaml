@@ -2,6 +2,20 @@ services:
   back:
     environment:
       - ENV=development
+  
   db:
     volumes:
-      - ./pgdata:/data
+      - ./pgdata:${PGDATA}
+
+  front:
+    image: node:20-slim
+    command: ["sh", "-c", "cd /app && npm start"]
+    volumes:
+      - ./front:/app
+    ports:
+      - 3000:3000
+    networks:
+      - app
+    depends_on:
+      back:
+        condition: service_healthy
