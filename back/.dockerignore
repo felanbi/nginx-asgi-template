@@ -2,4 +2,5 @@
 Dockerfile
 
 **/__pycache__/
-clear.sh
+**/migrations/
+!**/migrations/__init__.py

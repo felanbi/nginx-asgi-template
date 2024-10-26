@@ -10,7 +10,6 @@ services:
   back:
     container_name: django-fastapi
     env_file: ./back/.env
-    build: ./back
     healthcheck:
       test: ["CMD-SHELL", "lsof -i:8000 | grep -i listen"]
       interval: 30s

@@ -2,6 +2,12 @@ services:
   back:
     environment:
       - ENV=development
+    build:
+      context: ./back
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./back/api:/app/api
+      - ./back/core:/app/core
   
   db:
     volumes:
