@@ -1,3 +1,4 @@
 pgdata/
 redis/
+sonarqube/
 .env

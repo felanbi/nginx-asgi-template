@@ -1,4 +1,22 @@
+networks:
+  back:
+    name: back-dev
+    
+  app:
+    name: app-dev
+
 services:
+  front:
+    image: node:20-slim
+    command: ["sh", "-c", "cd /app && npm install && npm run dev -- --host"]
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - 3000:5173
+    networks:
+      - app
+
   back:
     environment:
       - ENV=development
@@ -17,13 +35,8 @@ services:
     volumes:
       - ./redis:/data
 
-  front:
-    image: node:20-slim
-    command: ["sh", "-c", "cd /app && npm install && npm run dev -- --host"]
+  sonar:
     volumes:
-      - ./front:/app
-      - /app/node_modules
-    ports:
-      - 3000:5173
-    networks:
-      - app
+      - ./sonarqube/data:/opt/sonarqube/data 
+      - ./sonarqube/extensions:/opt/sonarqube/extensions 
+      - ./sonarqube/logs:/opt/sonarqube/logs
