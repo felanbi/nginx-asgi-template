@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TabMenu } from "primereact/tabmenu";
 
-const Header = ({ items }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Header = () => {
+  const navigate = useNavigate();
+  
+  const items = [
+    {
+      label: "Login",
+      icon: "pi pi-fw pi-home",
+      command: () => navigate("/login"),
+    },
+    {
+      label: "Register",
+      icon: "pi pi-fw pi-calendar",
+      command: () => navigate("/register"),
+    },
+  ];
 
-  return (
-    <div className="card">
-      <TabMenu
-        model={items}
-        activeIndex={activeIndex}
-        onTabChange={item => setActiveIndex(item.index)}
-      />
-    </div>
-  );
+  return <TabMenu model={items} />;
 };
 
 export default Header;

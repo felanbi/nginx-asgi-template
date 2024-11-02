@@ -14,14 +14,10 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 
-const items = [
-  { label: "Login", icon: "pi pi-fw pi-home" },
-  { label: "Register", icon: "pi pi-fw pi-calendar" },
-];
-
 const App = () => {
   const routes = createRoutesFromElements(
-    <Route path="/" element={<Header items={items} />}>
+    <Route>
+      <Route path="/" element={<Header />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
     </Route>
