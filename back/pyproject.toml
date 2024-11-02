@@ -16,6 +16,7 @@ psycopg2-binary = "^2.9.10"
 asyncpg = "^0.29.0"
 blacknoise = "^1.1.0"
 django-redis = "^5.4.0"
+pyjwt = "^2.9.0"
 
 [tool.ruff]
 ignore = ["F401"]

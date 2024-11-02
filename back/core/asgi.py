@@ -24,6 +24,7 @@ register_tortoise(
 
 app.include_router(routers.authors.router)
 app.include_router(routers.books.router)
+app.include_router(routers.auth.router)
 
 djapp = BlackNoise(get_asgi_application())
 djapp.add(settings.STATIC_ROOT, "/static")

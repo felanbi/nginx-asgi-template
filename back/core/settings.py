@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 import environ
 
@@ -34,6 +35,9 @@ DEBUG = not ENV.startswith('prod')
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
+JWT_ALGORITHM = 'HS256'
+JWT_EXP_TIMEDELTA = timedelta(seconds=300)
+JWT_REFRESH_EXP_TIMEDELTA = timedelta(seconds=86400)
 
 # Application definition
 
@@ -45,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "api",
+    "accounts"
 ]
 
 MIDDLEWARE = [
@@ -58,6 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+AUTH_USER_MODEL = 'accounts.AppUser'
 
 TEMPLATES = [
     {
