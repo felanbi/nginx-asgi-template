@@ -1,4 +1,7 @@
+# Docker local volumes
 pgdata/
 redis/
 sonarqube/
-.env
+
+.env*
+!.env.template
