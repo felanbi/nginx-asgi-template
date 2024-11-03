@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
 
 const LoginForm = () => {
+  console.log("Login rendered");
   const [checked, setChecked] = useState(false);
 
   return (
