@@ -1,0 +1,31 @@
+name: Dependency Vulnerability Check
+
+on:
+  pull_request:
+    branches:
+      - main  
+      - dev-back
+
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.7'
+
+      - name: Install dependencies
+        working-directory: ./back
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Run safety check
+        run: |
+          poetry run safety check
