@@ -19,13 +19,11 @@ jobs:
         with:
           python-version: '3.12.7'
 
-      - name: Install dependencies
+      - name: Check dependencies
         working-directory: ./back
         run: |
           python3 -m pip install --upgrade pip
-          pip install poetry
+          pip install poetry 
           poetry install
-
-      - name: Run safety check
-        run: |
+          poetry add safety
           poetry run safety check
