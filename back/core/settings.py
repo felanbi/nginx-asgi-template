@@ -22,6 +22,7 @@ env.read_env(BASE_DIR / ".env", overwrite=True)
 
 ENV = env.str("ENV")
 DATABASE_URL = env("DATABASE_URL")
+REDIS_URL = env("REDIS_URL")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -57,6 +58,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+SESSION_COOKIE_NAME = "sessionid"
+SESSION_COOKIE_HTTPONLY = True
+
 ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
@@ -88,7 +92,7 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': env('REDIS_URL'), 
+        'LOCATION': REDIS_URL, 
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
